@@ -1,0 +1,193 @@
+[gd_scene load_steps=16 format=3 uid="uid://daqyynmprvuh1"]
+
+[ext_resource type="Texture2D" uid="uid://jrolk8yk0uqq" path="res://assets/textures/ui/t_crosshair.png" id="2_ujipk"]
+[ext_resource type="Script" path="res://assets/scripts/ui/sensitivity_slider.gd" id="3_nrb4m"]
+[ext_resource type="PackedScene" uid="uid://b8i5t3nvtky5" path="res://assets/scenes/nodes/node_map.tscn" id="4_d21je"]
+[ext_resource type="PackedScene" uid="uid://c8aopr2axklrt" path="res://assets/scenes/nodes/node_crate.tscn" id="5_txsye"]
+[ext_resource type="PackedScene" uid="uid://dfrgm3hk17tbf" path="res://assets/scenes/nodes/node_enemy.tscn" id="6_3ayhx"]
+[ext_resource type="PackedScene" uid="uid://0j06t60x7dwg" path="res://assets/scenes/nodes/node_1st_person_player.tscn" id="7_oqftb"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ypfxr"]
+sky_top_color = Color(0.392157, 0.584314, 0.929412, 1)
+sky_horizon_color = Color(1, 0.823529, 0.498039, 1)
+ground_bottom_color = Color(0.156585, 0.416683, 0.289446, 1)
+ground_horizon_color = Color(1, 0.823529, 0.498039, 1)
+
+[sub_resource type="Sky" id="Sky_kvphj"]
+sky_material = SubResource("ProceduralSkyMaterial_ypfxr")
+
+[sub_resource type="Environment" id="Environment_lubaw"]
+background_mode = 2
+sky = SubResource("Sky_kvphj")
+tonemap_mode = 3
+ssao_enabled = true
+sdfgi_enabled = true
+sdfgi_cascades = 1
+sdfgi_y_scale = 0
+glow_enabled = true
+glow_levels/6 = 0.13
+glow_levels/7 = 0.25
+glow_normalized = true
+glow_intensity = 0.4
+glow_strength = 0.5
+glow_blend_mode = 0
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.04
+volumetric_fog_length = 32.0
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_ud1v6"]
+exposure_sensitivity = 90.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_8l5o7"]
+font_size = 96
+font_color = Color(0.980392, 0.980392, 0.980392, 1)
+outline_size = 8
+outline_color = Color(0.196078, 0.196078, 0.196078, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_gdwaw"]
+font_size = 96
+font_color = Color(0.980392, 0.980392, 0.980392, 1)
+outline_size = 8
+outline_color = Color(0.196078, 0.196078, 0.196078, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_0ymaj"]
+font_size = 48
+font_color = Color(0.980392, 0.980392, 0.980392, 1)
+outline_size = 4
+outline_color = Color(0.196078, 0.196078, 0.196078, 1)
+
+[sub_resource type="ImageTexture" id="ImageTexture_x0iqe"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tk6n2"]
+bg_color = Color(0.980392, 0.980392, 0.980392, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 2
+
+[node name="MainScene" type="Node3D"]
+
+[node name="Environment" type="Node" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
+environment = SubResource("Environment_lubaw")
+camera_attributes = SubResource("CameraAttributesPractical_ud1v6")
+
+[node name="SunLight" type="DirectionalLight3D" parent="Environment"]
+transform = Transform3D(-0.661312, -0.438783, 0.608388, 0, 0.811064, 0.584958, -0.750111, 0.386839, -0.536366, 0, 5, 0)
+light_temperature = 5600.0
+light_bake_mode = 1
+shadow_enabled = true
+directional_shadow_fade_start = 1.0
+directional_shadow_max_distance = 25.0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="CrosshairTexture" type="TextureRect" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(16, 16)
+texture = ExtResource("2_ujipk")
+
+[node name="MagazineAmmoLabel" type="Label" parent="CanvasLayer"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -310.0
+offset_top = -332.0
+offset_right = -200.0
+offset_bottom = -200.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "30"
+label_settings = SubResource("LabelSettings_8l5o7")
+horizontal_alignment = 2
+
+[node name="TotalAmmoLabel" type="Label" parent="CanvasLayer"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -364.0
+offset_top = -232.0
+offset_right = -200.0
+offset_bottom = -100.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "150"
+label_settings = SubResource("LabelSettings_gdwaw")
+horizontal_alignment = 2
+
+[node name="SensitivityContainer" type="VBoxContainer" parent="CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -480.0
+offset_right = 480.0
+offset_bottom = 87.0
+grow_horizontal = 2
+
+[node name="SensitivityLabel" type="Label" parent="CanvasLayer/SensitivityContainer"]
+layout_mode = 2
+text = "Sensitivity"
+label_settings = SubResource("LabelSettings_0ymaj")
+horizontal_alignment = 1
+
+[node name="SensitivitySlider" type="HSlider" parent="CanvasLayer/SensitivityContainer"]
+layout_mode = 2
+theme_override_icons/grabber_disabled = SubResource("ImageTexture_x0iqe")
+theme_override_styles/grabber_area = SubResource("StyleBoxFlat_tk6n2")
+min_value = 1.0
+max_value = 10.0
+value = 3.0
+editable = false
+scrollable = false
+script = ExtResource("3_nrb4m")
+
+[node name="NodeMap" parent="." instance=ExtResource("4_d21je")]
+
+[node name="Objects" type="Node3D" parent="."]
+
+[node name="NodeCrate1" parent="Objects" instance=ExtResource("5_txsye")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.41076, -2.38419e-07, 7.4828)
+
+[node name="NodeCrate2" parent="Objects" instance=ExtResource("5_txsye")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.7247, -4.76837e-07, 8.88612)
+
+[node name="NodeCrate3" parent="Objects" instance=ExtResource("5_txsye")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.01602, -4.76837e-07, 3.67548)
+
+[node name="NodeCrate4" parent="Objects" instance=ExtResource("5_txsye")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.97975, 0, 10.1273)
+
+[node name="NodeCrate5" parent="Objects" instance=ExtResource("5_txsye")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.41248, 1.16908, 7.21173)
+
+[node name="NodeCrate6" parent="Objects" instance=ExtResource("5_txsye")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.2421, 9.53674e-07, 3.13434)
+
+[node name="Enemies" type="Node3D" parent="."]
+
+[node name="NodeEnemy1" parent="Enemies" instance=ExtResource("6_3ayhx")]
+transform = Transform3D(-0.944617, 0, 0.328174, 0, 1, 0, -0.328174, 0, -0.944617, -5.3147, 0, 10.9882)
+
+[node name="NodeEnemy2" parent="Enemies" instance=ExtResource("6_3ayhx")]
+transform = Transform3D(-0.315831, 0, -0.948815, 0, 1, 0, 0.948815, 0, -0.315831, 6.92403, -4.76837e-07, 5.00902)
+
+[node name="NodeEnemy3" parent="Enemies" instance=ExtResource("6_3ayhx")]
+transform = Transform3D(-0.337506, 0, 0.941323, 0, 1, 0, -0.941323, 0, -0.337506, -6.10851, -4.76837e-07, 1.29546)
+
+[node name="Node1stPersonPlayer" parent="." instance=ExtResource("7_oqftb")]

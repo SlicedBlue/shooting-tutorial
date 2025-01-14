@@ -1,0 +1,7 @@
+# Godot 4+ specific ignores
+.godot/
+
+
+# Manually added ignores
+addons/godot-jolt/windows/~godot-jolt_windows-x64_editor.dll
+addons/godot-git-plugin/win64/~libgit_plugin.windows.editor.x86_64.dll

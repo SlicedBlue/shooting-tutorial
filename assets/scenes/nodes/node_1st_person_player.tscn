@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://0j06t60x7dwg"]
+
+[ext_resource type="Script" path="res://assets/scripts/player/player_movement.gd" id="1_yx162"]
+[ext_resource type="Script" path="res://assets/scripts/player/player_camera.gd" id="2_qkjtv"]
+[ext_resource type="PackedScene" uid="uid://cfadcy606ad1x" path="res://assets/scenes/nodes/node_gun.tscn" id="3_u1nvp"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ejs41"]
+radius = 0.3
+height = 1.66
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_h8k6v"]
+radius = 0.3
+height = 1.66
+radial_segments = 16
+rings = 4
+
+[node name="Node1stPersonPlayer" type="CharacterBody3D"]
+collision_layer = 2
+collision_mask = 3
+script = ExtResource("1_yx162")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.83, 0)
+shape = SubResource("CapsuleShape3D_ejs41")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.83, 0)
+gi_mode = 2
+mesh = SubResource("CapsuleMesh_h8k6v")
+
+[node name="PlayerCamera" type="Camera3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 1.56, 0)
+script = ExtResource("2_qkjtv")
+
+[node name="NodeGun" parent="PlayerCamera" instance=ExtResource("3_u1nvp")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.116, -0.218, -0.315)

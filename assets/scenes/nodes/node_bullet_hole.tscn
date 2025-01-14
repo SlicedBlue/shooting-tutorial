@@ -1,0 +1,48 @@
+[gd_scene load_steps=7 format=3 uid="uid://r2jvx5w4gymi"]
+
+[ext_resource type="Texture2D" uid="uid://crekk72shi5nu" path="res://assets/textures/decals/t_bullet_hole_albedo.png" id="1_d4ytg"]
+[ext_resource type="Texture2D" uid="uid://cj4452e2v5li4" path="res://assets/textures/decals/t_bullet_hole_normal.png" id="2_e6syv"]
+[ext_resource type="Texture2D" uid="uid://c8hj54hfe7hhp" path="res://assets/textures/decals/t_bullet_hole_orm.png" id="3_a46s1"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ad05c"]
+particle_flag_align_y = true
+angle_min = -180.0
+angle_max = 180.0
+direction = Vector3(0, 1, 0)
+spread = 15.0
+initial_velocity_min = 1.0
+initial_velocity_max = 4.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yyx5m"]
+shading_mode = 0
+albedo_color = Color(0.956863, 0.752941, 0.164706, 1)
+disable_receive_shadows = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_rc0r7"]
+material = SubResource("StandardMaterial3D_yyx5m")
+size = Vector3(0.006, 0.02, 0.006)
+
+[node name="NodeBulletHole" type="Node3D"]
+
+[node name="Decal" type="Decal" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.02, 0)
+size = Vector3(0.03, 0.06, 0.03)
+texture_albedo = ExtResource("1_d4ytg")
+texture_normal = ExtResource("2_e6syv")
+texture_orm = ExtResource("3_a46s1")
+upper_fade = 1e-05
+lower_fade = 1e-05
+cull_mask = 1048573
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+layers = 2
+cast_shadow = 0
+gi_mode = 0
+emitting = false
+amount = 20
+lifetime = 2.0
+one_shot = true
+explosiveness = 0.98
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_ad05c")
+draw_pass_1 = SubResource("BoxMesh_rc0r7")

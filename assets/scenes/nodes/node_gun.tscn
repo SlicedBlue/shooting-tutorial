@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://cfadcy606ad1x"]
+
+[ext_resource type="PackedScene" uid="uid://bj7b880jdppwq" path="res://assets/meshes/mesh_gun.glb" id="1_5nopw"]
+[ext_resource type="Material" uid="uid://chvwslfhtcvo5" path="res://assets/materials/m_gun.tres" id="2_qjtk2"]
+
+[node name="NodeGun" instance=ExtResource("1_5nopw")]
+
+[node name="Gun" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_qjtk2")
