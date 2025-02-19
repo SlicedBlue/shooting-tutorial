@@ -2,7 +2,7 @@ class_name PlayerCamera
 extends Node3D
 
 
-const BASE_SENSITIVITY: float = 1.25
+const BASE_SENSITIVITY: float = 1.5
 const VERTICAL_LOOK_LIMIT: float = deg_to_rad(80)
 
 @onready var player: Node3D = $".."
@@ -19,7 +19,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _rotate_camera(mouse_delta: Vector2) -> void:
 	# Horizontal rotation
-	var sensitivity: float = 0.000125 * pow(BASE_SENSITIVITY, GlobalVariables.get_camera_sensitivity())
+	var sensitivity: float = 0.00025 * pow(BASE_SENSITIVITY, GlobalVariables.get_camera_sensitivity())
 	player.rotation.y -= mouse_delta.x * sensitivity
 	
 	# Vertical rotation
